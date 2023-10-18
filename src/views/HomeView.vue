@@ -9,7 +9,7 @@ import ContentField from '@/components/ContentField.vue';
 
 export default {
   name: 'HomeView',
-  components: {ContentField},
+  components: { ContentField },
 }
 </script>
 

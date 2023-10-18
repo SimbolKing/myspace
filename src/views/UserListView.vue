@@ -19,11 +19,11 @@
 <script>
 import ContentField from '@/components/ContentField.vue';
 import $ from 'jquery';
-import {ref} from 'vue';
+import { ref } from 'vue';
 
 export default {
   name: "UserList",
-  components: {ContentField},
+  components: { ContentField },
   setup() {
     const users = ref([]);
     $.ajax({
@@ -34,7 +34,7 @@ export default {
       }
     })
 
-    return {users}
+    return { users }
   }
 }
 </script>

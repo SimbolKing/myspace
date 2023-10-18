@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import {ref} from 'vue'
+import { ref } from 'vue'
 
 export default {
   setup(props, context) {
@@ -20,7 +20,7 @@ export default {
           postContent.value = ""
     }
 
-    return {postContent, post_a_post}
+    return { postContent, post_a_post }
   }
 }
 </script>

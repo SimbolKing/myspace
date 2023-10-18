@@ -29,7 +29,7 @@ export default {
       context.emit('unfollow');
     }
 
-    return {follow, unfollow}
+    return { follow, unfollow }
   }
 }
 </script>

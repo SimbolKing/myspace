@@ -17,13 +17,12 @@ import ContentField from '@/components/ContentField.vue';
 import Info from '@/components/UserProfile/Info.vue';
 import Posts from '@/components/UserProfile/Posts.vue';
 import Write from '@/components/UserProfile/Write.vue'
-import {reactive} from 'vue';
-import {useRoute} from 'vue-router';
-
+import { reactive } from 'vue';
+import { useRoute } from 'vue-router';
 
 export default {
   name: "UserProfile",
-  components: {ContentField, Info, Posts, Write},
+  components: { ContentField, Info, Posts, Write },
   setup() {
     const userId = useRoute().params.userId;
     console.log(userId);
@@ -59,18 +58,18 @@ export default {
     const follow = () => {
       if (user.isFollowed) return;
       user.isFollowed = true;
-      user.followerCount++;
+      user.followerCount ++;
     }
 
     const unfollow = () => {
       if (!user.isFollowed) return;
       user.isFollowed = false;
-      user.followerCount--;
+      user.followerCount --;
     }
 
     const post_a_post = (postContent) => {
       if (postContent != "") {
-        posts.count++;
+        posts.count ++;
         posts.posts.unshift({
           id: posts.count,
           authorId: 1,
@@ -79,7 +78,7 @@ export default {
       }
     }
 
-    return {user, follow, unfollow, posts, post_a_post}
+    return { user, follow, unfollow, posts, post_a_post }
   }
 }
 </script>
