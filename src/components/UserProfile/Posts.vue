@@ -22,7 +22,7 @@ export default {
 </script>
 
 <style scoped>
-  .single-post {
-    margin-bottom: 10px;
-  }
+.single-post {
+  margin-bottom: 10px;
+}
 </style>
