@@ -25,7 +25,6 @@ export default {
   components: { ContentField, Info, Posts, Write },
   setup() {
     const userId = useRoute().params.userId;
-    console.log(userId);
 
     const user = reactive({
       id: 1,
@@ -68,7 +67,7 @@ export default {
     }
 
     const post_a_post = (postContent) => {
-      if (postContent != "") {
+      if (postContent !== "") {
         posts.count ++;
         posts.posts.unshift({
           id: posts.count,

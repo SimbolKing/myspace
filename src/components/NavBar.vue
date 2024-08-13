@@ -12,18 +12,31 @@
             <router-link :to="{name: 'Home'}" class="nav-link">首页</router-link>
           </li>
           <li class="nav-item">
-            <router-link :to="{name: 'UserProfile', params: {userId: 3}}" class="nav-link">用户动态</router-link>
-          </li>
-          <li class="nav-item">
             <router-link :to="{name: 'UserList'}" class="nav-link">好友列表</router-link>
           </li>
+          <li class="nav-item">
+            <router-link :to="{name: 'UserProfile', params: {userId: 3}}" class="nav-link">用户动态</router-link>
+          </li>
         </ul>
-        <ul class="navbar-nav">
+        <ul v-if="!$store.state.user.is_login" class="navbar-nav">
           <li class="nav-item">
             <router-link :to="{name: 'Login'}" class="nav-link">登录</router-link>
           </li>
           <li class="nav-item">
             <router-link :to="{name: 'Register'}" class="nav-link">注册</router-link>
+          </li>
+        </ul>
+        <ul v-else-if="$store.state.user.is_login" class="navbar-nav">
+          <li class="nav-item">
+            <router-link
+                :to="{name: 'UserProfile', params: {userId: $store.state.user.id}}"
+                class="nav-link"
+            >
+              {{ $store.state.user.username }}
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link :to="{name: 'Home'}" class="nav-link" style="cursor: pointer" @click="logout">退出</router-link>
           </li>
         </ul>
       </div>
@@ -32,7 +45,19 @@
 </template>
 
 <script>
-export default {}
+import { useStore } from "vuex";
+
+export default {
+  name: "NavBar",
+  setup() {
+    const store = useStore();
+    const logout = () => {
+      store.commit('logout');
+    }
+
+    return { logout }
+  }
+}
 </script>
 
 <style>
