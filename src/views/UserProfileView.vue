@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-3">
         <Info :user="user" @follow="follow" @unfollow="unfollow"/>
-        <Write @post_a_post="post_a_post"/>
+        <Write v-if="is_me" @post_a_post="post_a_post"/>
       </div>
       <div class="col-9">
         <Posts :posts="posts"/>
@@ -19,40 +19,51 @@ import Posts from '@/components/UserProfile/Posts.vue';
 import Write from '@/components/UserProfile/Write.vue'
 import { reactive } from 'vue';
 import { useRoute } from 'vue-router';
+import $ from 'jquery';
+import { useStore } from "vuex";
+import { computed } from "vue";
 
 export default {
   name: "UserProfile",
   components: { ContentField, Info, Posts, Write },
   setup() {
-    const userId = useRoute().params.userId;
+    const userId = parseInt(useRoute().params.userId);
+    const route = useRoute();
+    const user = reactive({});
+    const posts = reactive({});
+    const store = useStore();
 
-    const user = reactive({
-      id: 1,
-      username: "jinshengbo",
-      followerCount: 10,
-      isFollowed: false,
-    })
+    $.ajax({
+      url: "https://app165.acapp.acwing.com.cn/myspace/getinfo/",
+      type: "get",
+      data: {
+        user_id: userId,
+      },
+      headers: {
+        'Authorization': 'Bearer ' + store.state.user.access,
+      },
+      success(resp) {
+        user.id = resp.id;
+        user.username = resp.username;
+        user.photo = resp.photo;
+        user.followerCount = resp.followerCount;
+        user.isFollowed = resp.isFollowed;
+      },
+    });
 
-    const posts = reactive({
-      count: 3,
-      posts: [
-        {
-          id: 1,
-          authorId: 1,
-          content: "post1"
-        },
-        {
-          id: 2,
-          authorId: 1,
-          content: "post2"
-        },
-        {
-          id: 3,
-          authorId: 1,
-          content: "post3"
-        }
-      ]
-    })
+    $.ajax({
+      url: "https://app165.acapp.acwing.com.cn/myspace/post/",
+      type: "get",
+      data: {
+        user_id: userId,
+      },
+      headers: {
+        'Authorization': 'Bearer ' + store.state.user.access,
+      },
+      success(resp) {
+        posts.posts = resp;
+      }
+    });
 
     const follow = () => {
       if (user.isFollowed) return;
@@ -77,7 +88,9 @@ export default {
       }
     }
 
-    return { user, follow, unfollow, posts, post_a_post }
+    const is_me = computed(() => userId === store.state.user.id);
+
+    return { user, follow, unfollow, posts, post_a_post, is_me }
   }
 }
 </script>

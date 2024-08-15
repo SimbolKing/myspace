@@ -3,7 +3,7 @@
     <div class="card-body">
       <div class="row">
         <div class="col-3">
-          <img alt="" class="img-fluid" src="https://cdn.acwing.com/media/user/profile/photo/211757_lg_2d860efa13.jpg">
+          <img alt="" class="img-fluid" :src="user.photo">
         </div>
         <div class="col-9">
           <div class="username">{{ user.username }}</div>
@@ -51,5 +51,11 @@ img {
 button {
   padding: 2px 4px;
   font-size: 12px;
+}
+
+.img-fluid {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 </style>

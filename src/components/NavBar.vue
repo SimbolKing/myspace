@@ -14,9 +14,6 @@
           <li class="nav-item">
             <router-link :to="{name: 'UserList'}" class="nav-link">好友列表</router-link>
           </li>
-          <li class="nav-item">
-            <router-link :to="{name: 'UserProfile', params: {userId: 3}}" class="nav-link">用户动态</router-link>
-          </li>
         </ul>
         <ul v-if="!$store.state.user.is_login" class="navbar-nav">
           <li class="nav-item">
